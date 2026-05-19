@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="SE-GA: Memory-Augmented Self-Evolution for GUI Agents - ICML 2026">
+  <meta property="og:title" content="SE-GA: Memory-Augmented Self-Evolution for GUI Agents"/>
+  <meta property="og:description" content="A novel framework that integrates hierarchical memory structures with an iterative self-improvement mechanism for autonomous GUI agents."/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <meta property="og:image" content="static/images/figure1_overview.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <meta name="twitter:title" content="SE-GA: Memory-Augmented Self-Evolution for GUI Agents">
+  <meta name="twitter:description" content="A novel framework that integrates hierarchical memory structures with an iterative self-improvement mechanism for autonomous GUI agents.">
+  <meta name="twitter:image" content="static/images/figure1_overview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="GUI Agents, Memory-Augmented, Self-Evolution, VLMs, Visual Language Models, Reinforcement Learning, ICML 2026">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SE-GA: Memory-Augmented Self-Evolution for GUI Agents</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#abstract">Abstract</a>
+      <a class="navbar-item" href="#overview">Overview</a>
+      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#experiments">Experiments</a>
+      <a class="navbar-item" href="#BibTeX">BibTeX</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero / Title Section -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">SE-GA: Memory-Augmented Self-Evolution for GUI Agents</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="#" target="_blank">Shilong Jin</a><sup>1, 2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#" target="_blank">Lanjun Wang</a><sup>2, ✉</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#" target="_blank">Zhuosheng Zhang</a><sup>3</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors affiliations">
+            <span class="author-block"><sup>1</sup>College of Intelligence and Computing, Tianjin University, Tianjin, China</span><br>
+            <span class="author-block"><sup>2</sup>School of New Media and Communication, Tianjin University, Tianjin, China</span><br>
+            <span class="author-block"><sup>3</sup>School of Computer Science, Shanghai Jiao Tong University, Shanghai, China</span>
+          </div>
+
+          <a href="https://icml.cc/virtual/2026/poster/65853" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+		<span class="conference-badge">
+			<i class="fas fa-scroll"></i> &nbsp;ICML 2026, Seoul, South Korea
+		</span>
+	  </a>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Paper PDF -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2605.16883" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span>
+                </a>
+              </span>
+              <!-- GitHub -->
+              <span class="link-block">
+                <a href="https://github.com/jinshilong-dev/SE-GA" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+                </a>
+              </span>
+              <!-- Dataset -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/waterphd/SE-GA-dataset" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">🤗</span>
+                <span>Dataset</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper Abstract -->
+<section class="section hero" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified abstract-text">
+          <p>
+            Autonomous Graphical User Interface (GUI) agents often struggle with multi-step tasks due to constrained context windows and static policies that fail to adapt to dynamic environments. To address these limitations, this work proposes the <strong>Self-Evolving GUI Agent (SE-GA)</strong>, a novel framework that integrates hierarchical memory structures with an iterative self-improvement mechanism.
+          </p>
+          <p>
+            At the core of our approach is <strong>Test-Time Memory Extension (TTME)</strong>, which facilitates long-term planning by dynamically retrieving episodic, semantic, and experiential memories to provide salient contexts during inference. To ensure continuous learning, we introduce <strong>Memory-Augmented Self-Evolution (MASE)</strong>, which is a training pipeline that adopts the data collected by TTME to stabilize and enhance the agent's foundational policy.
+          </p>
+          <p>
+            Extensive evaluations across both offline and online benchmarks demonstrate SE-GA achieves state-of-the-art performance, reaching success rates of <strong>89.0% on ScreenSpot</strong> and <strong>75.8% on the challenging AndroidControl-High dataset</strong>. Furthermore, significant improvements on the AndroidWorld benchmark highlight the superior generalization to dynamic environments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Overview Figure -->
+<section class="hero" id="overview">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Overview</h2>
+          <div class="item">
+            <img src="static/images/figure1_overview.png" alt="SE-GA Overview" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);"/>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Key Contributions -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Key Contributions</h2>
+      </div>
+    </div>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-5 contrib-card">
+        <h3><i class="fas fa-brain"></i> &nbsp; Memory-Augmented Framework</h3>
+        <p>SE-GA systematically organizes and exploits historical interaction data through a unified hierarchical memory to improve multi-step task execution reliability.</p>
+      </div>
+      <div class="column is-5 contrib-card">
+        <h3><i class="fas fa-layer-group"></i> &nbsp; Hierarchical Test-Time Memory (TTME)</h3>
+        <p>Integrates episodic, semantic, and experiential memories, enabling the agent to retrieve both recent interaction context and relevant past experiences in a unified manner.</p>
+      </div>
+      <div class="column is-5 contrib-card">
+        <h3><i class="fas fa-rocket"></i> &nbsp; Memory-Augmented Self-Evolution (MASE)</h3>
+        <p>A two-stage training pipeline combining grounding supervision with self-collected experience, featuring Hindsight Goal-Shifting for data construction and stabilized training for iterative improvement.</p>
+      </div>
+      <div class="column is-5 contrib-card">
+        <h3><i class="fas fa-chart-line"></i> &nbsp; State-of-the-Art Performance</h3>
+        <p>Consistently improves success rates and robustness across multiple benchmarks, achieving 89.0% on ScreenSpot, 75.8% on AndroidControl-High, and 39.0% on AndroidWorld.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method Section -->
+<section class="section hero" id="method">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+      </div>
+    </div>
+
+    <!-- TTME -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">Test-Time Memory Extension (TTME)</h3>
+        <div class="content has-text-justified">
+          <p>
+            TTME maintains a hierarchical memory repository <strong>M = (M<sup>EPI</sup>, M<sup>SEM</sup>, M<sup>EXP</sup>)</strong> during task execution, inspired by human cognitive architectures:
+          </p>
+        </div>
+        <div class="highlight-box">
+          <ul>
+            <li><strong>Episodic Memory (M<sup>EPI</sup>)</strong>: Tracks immediate task progress via a sliding window of recent actions — "What did I just do?"</li>
+            <li><strong>Semantic Memory (M<sup>SEM</sup>)</strong>: Stores domain-general interaction rules (e.g., "Log in before accessing restricted pages") for transfer across tasks.</li>
+            <li><strong>Experiential Memory (M<sup>EXP</sup>)</strong>: Retrieves successful trajectories from similar historical tasks using a hybrid retrieval mechanism that jointly considers semantic intent and visual similarity.</li>
+          </ul>
+        </div>
+        <div class="content has-text-justified" style="margin-top: 1rem;">
+          <p>
+            Beyond static retrieval, TTME functions as a dynamic buffer that accumulates novel successful trajectories in real-time during inference, enabling the agent to achieve <em>online evolution without immediate retraining</em>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MASE -->
+    <div class="columns is-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">Memory-Augmented Self-Evolution (MASE)</h3>
+        <div class="content has-text-justified">
+          <p>
+            MASE provides a two-stage training framework that leverages the high-quality interaction data curated within the memory repository:
+          </p>
+        </div>
+        <div class="columns is-multiline">
+          <div class="column is-6">
+            <div class="contrib-card">
+              <h3>Stage I: Grounding Training</h3>
+              <p>Supervised fine-tuning (SFT) to strengthen the model's reasoning capabilities, formulated as memory-aware behavior cloning over expert trajectories. This bridges the gap between visual perception and executable action space.</p>
+            </div>
+          </div>
+          <div class="column is-6">
+            <div class="contrib-card">
+              <h3>Stage II: Self-Evolution Training</h3>
+              <p>Based on GRPO with three key innovations: <strong>token-level importance ratio</strong> for fine-grained credit assignment, <strong>adaptive clipping</strong> with cosine decay schedule, and <strong>hierarchical reward design</strong> combining format correctness and task execution accuracy.</p>
+            </div>
+          </div>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            A key innovation is the <strong>Hindsight Goal-Shifting Mechanism</strong>: when a trajectory fails to achieve its original goal but successfully completes a valid sub-goal, it is relabeled as a successful instance, effectively converting failures into useful supervision signals.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experiments Section -->
+<section class="section hero" id="experiments">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experiments</h2>
+      </div>
+    </div>
+
+    <!-- GUI Grounding -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-5" style="text-align: left;">Table 1: GUI Grounding on ScreenSpot</h3>
+        <div class="item content-figure">
+          <img src="static/images/table1_screenspot.png" alt="Table 1: ScreenSpot Results" style="max-width: 100%;"/>
+          <p class="table-caption">
+            Grounding accuracy on ScreenSpot. SE-GA achieves an average score of <span class="result-highlight">89.0%</span>, consistently outperforming all 7B baselines and surpassing larger models such as UI-TARS-72B and Qwen2.5-VL-72B.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offline Agent Evaluation -->
+    <div class="columns is-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-5" style="text-align: left;">Table 2: Offline Agent Evaluation on AndroidControl & GUIOdyssey</h3>
+        <div class="item content-figure">
+          <img src="static/images/table2_androidcontrol.png" alt="Table 2: AndroidControl and GUIOdyssey Results" style="max-width: 100%;"/>
+          <p class="table-caption">
+            Performance comparison on AndroidControl and GUIOdyssey. SE-GA achieves <span class="result-highlight">75.8%</span> success rate on AndroidControl-High and <span class="result-highlight">83.9%</span> on GUIOdyssey, establishing a new state-of-the-art among 7B models.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table 3: AndroidWorld -->
+    <div class="columns is-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-5" style="text-align: left;">Table 3: Online Agent Evaluation on AndroidWorld</h3>
+        <div class="item content-figure">
+          <img src="static/images/table3_androidworld.png" alt="Table 3: AndroidWorld Results" style="max-width: 60%;"/>
+          <p class="table-caption">
+            Performance on AndroidWorld. SE-GA achieves <span class="result-highlight">39.0%</span>, significantly outperforming prior open-source models (UI-TARS-7B: 33.0%, Qwen2.5-VL-7B: 25.5%) and even closed-source GPT-4o (23.7%).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table 4: Ablation -->
+    <div class="columns is-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-5" style="text-align: left;">Table 4: Ablation Study</h3>
+        <div class="item content-figure">
+          <img src="static/images/table4_ablation.png" alt="Table 4: Ablation Study" style="max-width: 100%;"/>
+          <p class="table-caption">
+            Ablation study on core components. Removing TTME causes significant performance drops across all benchmarks, and removing MASE results in even larger degradation, demonstrating the critical roles of both hierarchical memory retrieval and self-evolution training.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX Citation -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <div class="bibtex-section">
+      <pre><code>@misc{jin2026segamemoryaugmentedselfevolutiongui,
+      title={SE-GA: Memory-Augmented Self-Evolution for GUI Agents}, 
+      author={Shilong Jin and Lanjun Wang and Zhuosheng Zhang},
+      year={2026},
+      eprint={2605.16883},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2605.16883}, 
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Burger menu toggle for mobile
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target) || el.closest('.navbar').querySelector('.navbar-menu');
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
